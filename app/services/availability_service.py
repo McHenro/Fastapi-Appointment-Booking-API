@@ -20,7 +20,16 @@ def create_availability(
     db.commit()
     db.refresh(new_slot)
 
-    return new_slot
+    slots = generate_slots(
+        availability.start_time,
+        availability.end_time,
+        availability.slot_duration
+    )
+
+    return {
+        'availability': new_slot,
+        'slots': slots
+    }
 
 def generate_slots(start_time, end_time, slot_duration):
 
