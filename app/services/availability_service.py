@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Session
 from app.models.availability import Availability
 from app.schemas.availability import AvailabilityCreate
+from datetime import datetime, timedelta
 
 def create_availability(
     db: Session,
@@ -20,3 +21,25 @@ def create_availability(
     db.refresh(new_slot)
 
     return new_slot
+
+def generate_slots(start_time, end_time, slot_duration):
+
+    slots = []
+
+    start = datetime.combine(datetime.today(), start_time)
+    end = datetime.combine(datetime.today(), end_time)
+
+    while start < end:
+
+        slot_end = start + timedelta(minutes=slot_duration)
+
+        slots.append(
+            {
+                "start_time": start.time(),
+                "end_time": slot_end.time()
+            }
+        )
+
+        start = slot_end
+
+    return slots

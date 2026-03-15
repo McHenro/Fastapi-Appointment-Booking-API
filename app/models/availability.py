@@ -16,4 +16,6 @@ class Availability(Base):
 
     end_time = Column(Time, nullable=False)
 
+    slot_duration = Column(Integer, nullable=False)  # minutes
+
     doctor = relationship("User")
