@@ -8,7 +8,6 @@ def create_availability(
     doctor_id: int,
     availability: AvailabilityCreate
 ):
-    breakpoint()
 
     slots = generate_slots(
         availability.start_time,
